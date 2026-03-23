@@ -393,7 +393,7 @@ const ProductCard = ({ image, name, price, description, hook, tag, onSelect }: a
     <h3 className="text-lg font-serif mb-1">{name}</h3>
     <p className="text-[10px] text-brand-taupe uppercase tracking-widest mb-2 font-medium italic">"{description}"</p>
     <p className="text-sm font-medium text-brand-charcoal">${price}</p>
-    <div className="mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+    <div className="mt-3 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
       <p className="text-[9px] text-brand-taupe leading-relaxed mb-2 max-w-[90%]">
         {hook}
       </p>
@@ -546,7 +546,7 @@ export default function App() {
             className="relative aspect-[4/5] lg:aspect-square"
           >
             <img 
-              src="https://i.postimg.cc/YS19vmkB/image.png" 
+              src="https://i.postimg.cc/GhM0L3yL/image.png" 
               alt="Rapagnani Anillos" 
               className="w-full h-full object-cover rounded-2xl shadow-2xl"
               referrerPolicy="no-referrer"
@@ -593,7 +593,7 @@ export default function App() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10 md:gap-y-16">
             {rings.map((ring) => (
               <ProductCard 
                 key={ring.id}
