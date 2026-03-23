@@ -167,9 +167,9 @@ _Enviado desde la Landing Page de Rapagnani_`;
           value: product ? parseFloat(product.price.replace('.', '')) : 0,
           currency: 'ARS'
         });
-        window.open(`https://wa.me/5491169302959?text=${encodeURIComponent(message)}`, '_blank');
+        window.location.href = `https://wa.me/5491169302959?text=${encodeURIComponent(message)}`;
         onClose();
-      }, 1000);
+      }, 800);
     } else {
       setStep(step + 1);
     }
@@ -192,7 +192,7 @@ _Enviado desde la Landing Page de Rapagnani_`;
       content_category: 'Concierge'
     });
 
-    window.open(`https://wa.me/5491169302959?text=${encodeURIComponent(message)}`, '_blank');
+    window.location.href = `https://wa.me/5491169302959?text=${encodeURIComponent(message)}`;
     onClose();
   };
 
