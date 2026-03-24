@@ -233,7 +233,7 @@ _Enviado desde la Landing Page de Rapagnani_`;
                 >
                   <div className="mb-8">
                     <p className="text-xs uppercase tracking-widest text-brand-taupe mb-2">
-                      {product ? 'Te orientamos en 3 pasos' : 'Te orientamos en 4 pasos'}
+                      Respondé 3 preguntas rápidas y seguís por WhatsApp
                     </p>
                     <h2 className="text-2xl font-serif leading-tight text-brand-charcoal">
                       {steps[step].title}
@@ -380,9 +380,6 @@ const ProductCard = ({ image, name, price, description, hook, tag, onSelect }: a
       />
       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300" />
       <div className="absolute top-4 left-4 flex flex-col gap-2">
-        <span className="bg-white/90 backdrop-blur-sm text-[8px] uppercase tracking-[0.2em] px-2 py-1 rounded font-bold text-brand-charcoal shadow-sm">
-          Stock Inmediato
-        </span>
         {tag && (
           <span className="bg-brand-charcoal text-white text-[8px] uppercase tracking-[0.2em] px-2 py-1 rounded font-bold shadow-sm">
             {tag}
@@ -392,14 +389,19 @@ const ProductCard = ({ image, name, price, description, hook, tag, onSelect }: a
     </div>
     <h3 className="text-lg font-serif mb-1">{name}</h3>
     <p className="text-[10px] text-brand-taupe uppercase tracking-widest mb-2 font-medium italic">"{description}"</p>
-    <p className="text-sm font-medium text-brand-charcoal">${price}</p>
-    <div className="mt-3 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
-      <p className="text-[9px] text-brand-taupe leading-relaxed mb-2 max-w-[90%]">
+    <p className="text-sm font-medium text-brand-charcoal mb-3">${price}</p>
+    <div className="opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
+      <p className="text-[9px] text-brand-taupe leading-relaxed mb-3 max-w-[90%]">
         {hook}
       </p>
-      <p className="text-[10px] uppercase tracking-widest border-b border-brand-charcoal pb-1 inline-block mb-1">
-        Avanzar con este anillo
-      </p>
+      <div className="flex flex-col gap-1">
+        <p className="text-[10px] uppercase tracking-widest border-b border-brand-charcoal pb-1 inline-block w-fit font-bold">
+          Avanzar con este anillo
+        </p>
+        <p className="text-[8px] uppercase tracking-widest text-brand-taupe">
+          Respondé 3 preguntas rápidas y seguís por WhatsApp
+        </p>
+      </div>
     </div>
   </motion.div>
 );
@@ -427,57 +429,57 @@ export default function App() {
   const rings = [
     {
       id: 1,
-      name: "Anillo Aurora de la Duquesa",
-      price: "98.000",
-      description: "Quiero algo fino y fácil de elegir.",
-      image: "https://i.postimg.cc/PJtsSPBy/Chat-GPT-Image-23-mar-2026-06-46-57-p-m.png",
-      hook: "Si querés empezar por un anillo delicado y fácil de usar, este es de los más nobles de la cápsula.",
-      tag: "Clásico Esencial"
+      name: "Anillo Destello Eterno",
+      price: "110.000",
+      description: "Luz y presencia en una pieza que se nota.",
+      image: "https://i.postimg.cc/26czPdrZ/Chat-GPT-Image-23-mar-2026-06-12-54-p-m.png",
+      hook: "Plata 925 con circones. Ideal para usar solo o combinar.",
+      tag: "Más Elegido"
     },
     {
       id: 2,
-      name: "Anillo Destello Eterno",
-      price: "110.000",
-      description: "Quiero un anillo delicado que sí se note.",
-      image: "https://i.postimg.cc/26czPdrZ/Chat-GPT-Image-23-mar-2026-06-12-54-p-m.png",
-      hook: "Ese anillo que suma luz y presencia sin volverse exagerado.",
-      tag: "Más Elegido"
+      name: "Anillo Aurora de la Duquesa",
+      price: "98.000",
+      description: "Delicadeza noble para todos los días.",
+      image: "https://i.postimg.cc/PJtsSPBy/Chat-GPT-Image-23-mar-2026-06-46-57-p-m.png",
+      hook: "Plata 925. Un diseño esencial que nunca falla.",
+      tag: "Elegante y versátil"
     },
     {
       id: 3,
       name: "Anillo Magnolia",
       price: "140.000",
-      description: "No quiero algo obvio.",
+      description: "Personalidad distintiva en cada detalle.",
       image: "https://i.postimg.cc/PJdKgZfJ/Chat-GPT-Image-23-mar-2026-06-39-02-p-m.png",
-      hook: "Si no querés un anillo más, Magnolia tiene otra personalidad.",
-      tag: "Diseño Único"
+      hook: "Plata 925. Diseño exclusivo con terminación artesanal.",
+      tag: "Diseño distintivo"
     },
     {
       id: 4,
       name: "Anillo Ternura",
       price: "150.000",
-      description: "Quiero que tenga significado.",
+      description: "Un regalo con significado real.",
       image: "https://i.postimg.cc/RVLxJQJ1/Chat-GPT-Image-23-mar-2026-06-37-42-p-m.png",
-      hook: "Una pieza para regalar cuando no querés caer en algo frío.",
-      tag: "Regalo Ideal"
+      hook: "Plata 925. La pieza perfecta para un momento especial.",
+      tag: "Regalo ideal"
     },
     {
       id: 5,
       name: "Anillo Luz de la Reina",
       price: "170.000",
-      description: "Quiero una pieza más distinguida.",
+      description: "Distinción y brillo de alta gama.",
       image: "https://i.postimg.cc/nLkx8KpH/Chat-GPT-Image-23-mar-2026-06-35-50-p-m.png",
-      hook: "Si querés una pieza más distinguida, esta es de las que más elevan la cápsula.",
-      tag: "Alta Elegancia"
+      hook: "Plata 925. Una de las piezas más elevadas de la cápsula.",
+      tag: "Pieza protagonista"
     },
     {
       id: 6,
       name: "Anillo Rubí de la Emperatriz",
       price: "185.000",
-      description: "Quiero una joya protagonista.",
+      description: "Una joya con carácter y color.",
       image: "https://i.postimg.cc/6q16krV1/Chat-GPT-Image-23-mar-2026-06-34-04-p-m.png",
-      hook: "Color, presencia y personalidad en una pieza que no pasa desapercibida.",
-      tag: "Statement Piece"
+      hook: "Plata 925 con piedra central. Presencia absoluta.",
+      tag: "Stock inmediato"
     }
   ];
 
@@ -508,20 +510,26 @@ export default function App() {
             <span className="inline-block text-xs uppercase tracking-[0.3em] text-brand-taupe mb-6">
               Nueva Cápsula Curada
             </span>
-            <h1 className="text-5xl md:text-7xl font-serif leading-[1.1] mb-6 text-brand-charcoal">
-              Anillos que cuentan <br /> 
-              <span className="italic">tu historia.</span>
+            <h1 className="text-4xl md:text-6xl font-serif leading-[1.1] mb-6 text-brand-charcoal">
+              Anillos de plata para elegir con <span className="italic">más claridad y más gusto.</span>
             </h1>
-            <p className="text-lg text-brand-taupe mb-10 max-w-md leading-relaxed">
-              Una selección exclusiva de piezas en plata, diseñadas para mujeres que eligen con criterio y sensibilidad.
+            <p className="text-lg text-brand-taupe mb-8 max-w-md leading-relaxed">
+              Una selección curada de 6 modelos Rapagnani, con asesoramiento real para ayudarte a definir estilo, medida y disponibilidad antes de pasar a WhatsApp.
             </p>
+            <div className="flex items-center gap-2 mb-10 text-[10px] uppercase tracking-widest text-brand-taupe font-semibold">
+              <span>Plata 925</span>
+              <span className="opacity-30">•</span>
+              <span>Joyería desde 1957</span>
+              <span className="opacity-30">•</span>
+              <span>Envíos a todo el país</span>
+            </div>
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="flex flex-col gap-2">
                 <Button onClick={() => handleWhatsApp()} icon={MessageCircle}>
                   Elegir mi anillo
                 </Button>
                 <p className="text-[10px] uppercase tracking-widest text-brand-taupe text-center">
-                  Te orientamos en 4 pasos antes de WhatsApp
+                  Respondé 3 preguntas rápidas y seguís por WhatsApp
                 </p>
               </div>
               <div className="flex items-center gap-3 px-2">
@@ -614,29 +622,29 @@ export default function App() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
               <h2 className="text-4xl md:text-5xl font-serif mb-8 leading-tight">
-                No es solo un catálogo, <br />
-                es un <span className="italic">criterio.</span>
+                No es solo una selección linda. <br />
+                Es una forma más <span className="italic">clara de elegir bien.</span>
               </h2>
               <div className="space-y-8">
                 <div className="flex gap-6">
                   <div className="flex-shrink-0 w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-brand-champagne font-serif italic text-xl">1</div>
                   <div>
-                    <h4 className="text-lg font-medium mb-2">Selección Consciente</h4>
-                    <p className="text-white/60 text-sm leading-relaxed">Evitamos el ruido de las tiendas masivas. Aquí solo encontrás lo que realmente vale la pena tener.</p>
+                    <h4 className="text-lg font-medium mb-2">Selección curada</h4>
+                    <p className="text-white/60 text-sm leading-relaxed">No vas a recorrer toda la tienda: te mostramos una cápsula pensada para decidir mejor.</p>
                   </div>
                 </div>
                 <div className="flex gap-6">
                   <div className="flex-shrink-0 w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-brand-champagne font-serif italic text-xl">2</div>
                   <div>
-                    <h4 className="text-lg font-medium mb-2">Asesoramiento Real</h4>
-                    <p className="text-white/60 text-sm leading-relaxed">Detrás del chat hay personas que saben de joyería, no bots. Te ayudamos a elegir según tu estilo y medida.</p>
+                    <h4 className="text-lg font-medium mb-2">Asesoramiento real</h4>
+                    <p className="text-white/60 text-sm leading-relaxed">Te ayudamos con modelo, medida y disponibilidad antes de comprar.</p>
                   </div>
                 </div>
                 <div className="flex gap-6">
                   <div className="flex-shrink-0 w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-brand-champagne font-serif italic text-xl">3</div>
                   <div>
-                    <h4 className="text-lg font-medium mb-2">Calidad que Perdura</h4>
-                    <p className="text-white/60 text-sm leading-relaxed">Plata 925 con terminaciones artesanales. Joyería con historia desde 1957 en Nordelta.</p>
+                    <h4 className="text-lg font-medium mb-2">Calidad con historia</h4>
+                    <p className="text-white/60 text-sm leading-relaxed">Plata 925, joyería con historia desde 1957 y atención cercana.</p>
                   </div>
                 </div>
               </div>
@@ -663,9 +671,9 @@ export default function App() {
           
           <div className="grid md:grid-cols-3 gap-12">
             {[
-              { step: "01", title: "Elegí tu favorito", desc: "Explorá la cápsula y seleccioná el modelo que más te represente." },
-              { step: "02", title: "Consultanos", desc: "Escribinos por WhatsApp. Te ayudamos con la medida y disponibilidad." },
-              { step: "03", title: "Recibí tu joya", desc: "Coordinamos el pago y envío a cualquier punto del país." }
+              { step: "01", title: "Elegí el modelo que más te guste", desc: "Recorré la cápsula y quedate con el anillo que más vaya con vos." },
+              { step: "02", title: "Definí medida y disponibilidad por WhatsApp", desc: "Te ayudamos a resolver talla, stock y variantes sin vueltas." },
+              { step: "03", title: "Confirmá y recibilo", desc: "Coordinamos pago y envío para que lo recibas con tranquilidad." }
             ].map((item, i) => (
               <div key={i} className="text-center">
                 <span className="block text-4xl font-serif italic text-brand-champagne mb-4">{item.step}</span>
@@ -685,9 +693,9 @@ export default function App() {
               <Ruler className="w-8 h-8 text-brand-taupe" />
             </div>
             <div>
-              <h2 className="text-2xl font-serif mb-4">¿Dudas con la medida o el stock?</h2>
+              <h2 className="text-2xl font-serif mb-4">¿No sabés tu medida o querés confirmar stock?</h2>
               <p className="text-brand-taupe text-sm leading-relaxed mb-6">
-                No te preocupes. Contamos con modelos en stock inmediato y otros que trabajamos a pedido para asegurar que tu anillo sea perfecto para vos. Si no sabés tu talle, te enviamos una guía práctica para medirlo en casa en segundos.
+                No pasa nada. Justamente por eso la experiencia termina en WhatsApp: para ayudarte a elegir mejor antes de comprar.
               </p>
               <div className="flex flex-col items-start gap-2">
                 <button 
@@ -697,7 +705,7 @@ export default function App() {
                   Quiero ayuda para elegir <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
                 <p className="text-[9px] uppercase tracking-widest text-brand-taupe">
-                  Respondé 3 preguntas rápidas y seguimos
+                  Respondé 3 preguntas rápidas y seguís por WhatsApp
                 </p>
               </div>
             </div>
@@ -708,26 +716,23 @@ export default function App() {
       {/* --- SECCIÓN 7: RESPALDO --- */}
       <section className="py-24 px-6 bg-white">
         <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-serif mb-12 text-center">Por qué eligen Rapagnani</h2>
-          <div className="grid md:grid-cols-3 gap-8">
+          <h2 className="text-3xl font-serif mb-12 text-center">Por qué confiar en Rapagnani</h2>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
             {[
-              { text: "La atención por WhatsApp fue impecable. Me ayudaron a elegir el talle justo y el envío a Córdoba llegó perfecto.", author: "Lucía M." },
-              { text: "Buscaba algo delicado para todos los días y los anillos de esta cápsula son exactamente lo que quería. Calidad increíble.", author: "Martina S." },
-              { text: "Compré para un regalo y el asesoramiento me salvó. Quedé súper bien, la presentación es hermosa.", author: "Sofía R." }
-            ].map((t, i) => (
-              <div key={i} className="bg-brand-ivory p-8 rounded-2xl text-left">
-                <div className="flex gap-1 mb-4">
-                  {[1,2,3,4,5].map(s => <Star key={s} className="w-3 h-3 fill-brand-champagne text-brand-champagne" />)}
+              { icon: Clock, title: "Joyería desde 1957", desc: "Trayectoria real" },
+              { icon: ShieldCheck, title: "Plata 925", desc: "Calidad garantizada" },
+              { icon: MessageCircle, title: "Asesoramiento real", desc: "Por WhatsApp" },
+              { icon: Truck, title: "Envíos a todo el país", desc: "Seguros y rápidos" },
+              { icon: MapPin, title: "Atención desde Nordelta", desc: "Cercanía y seriedad" }
+            ].map((item, i) => (
+              <div key={i} className="flex flex-col items-center">
+                <div className="w-12 h-12 rounded-full bg-brand-ivory flex items-center justify-center mb-4">
+                  <item.icon className="w-5 h-5 text-brand-taupe" />
                 </div>
-                <p className="text-sm italic text-brand-charcoal/80 mb-6 leading-relaxed">"{t.text}"</p>
-                <p className="text-xs font-bold uppercase tracking-widest text-brand-taupe">— {t.author}</p>
+                <h4 className="text-[10px] uppercase tracking-widest font-bold mb-1">{item.title}</h4>
+                <p className="text-[9px] text-brand-taupe uppercase tracking-wider">{item.desc}</p>
               </div>
             ))}
-          </div>
-          <div className="mt-16 pt-12 border-t border-brand-champagne/20 flex flex-wrap justify-center gap-12 opacity-50 grayscale">
-             <span className="font-serif italic text-xl">Nordelta</span>
-             <span className="font-serif italic text-xl">Desde 1957</span>
-             <span className="font-serif italic text-xl">Plata 925</span>
           </div>
         </div>
       </section>
@@ -738,28 +743,19 @@ export default function App() {
           <h2 className="text-3xl font-serif mb-12 text-center">Preguntas Frecuentes</h2>
           <div className="space-y-2">
             <Accordion title="¿Cómo elijo mi medida?">
-              Te enviamos una guía súper simple por WhatsApp para que midas un anillo que ya tengas o el contorno de tu dedo. Es infalible.
+              Es muy simple. Por WhatsApp te enviamos una guía práctica para que midas un anillo que ya tengas o el contorno de tu dedo. Te acompañamos en el proceso para que no haya errores.
             </Accordion>
-            <Accordion title="¿Qué pasa si quiero otra medida que no está en stock?">
-              Muchos de nuestros modelos se pueden ajustar o realizar a pedido. Consultanos por el modelo que te gustó y te confirmamos tiempos.
-            </Accordion>
-            <Accordion title="¿Los anillos están todos en stock?">
-              Contamos con stock de los modelos más elegidos. Si justo tu medida no está disponible, la podemos fabricar especialmente para vos.
+            <Accordion title="¿Qué pasa si quiero otra medida o no hay stock?">
+              Justamente por eso hablamos por WhatsApp. Si el modelo que te gusta no está en tu talle exacto, te confirmamos disponibilidad o tiempos de fabricación (generalmente 7-10 días).
             </Accordion>
             <Accordion title="¿Hacen envíos a todo el país?">
-              Sí, enviamos a través de Correo Argentino o Andreani a domicilio o sucursal en toda la Argentina.
+              Sí, hacemos envíos seguros a toda la Argentina a través de Correo Argentino o Andreani, directo a tu domicilio o a la sucursal que prefieras.
             </Accordion>
-            <Accordion title="¿Cómo se compra?">
-              Una vez que definimos modelo y medida por WhatsApp, te enviamos un link de pago o los datos para transferencia. ¡Es muy simple!
+            <Accordion title="¿Cómo es el proceso de compra?">
+              Primero definimos modelo y medida juntos por WhatsApp. Una vez confirmado, te enviamos el link de pago o datos para transferencia y coordinamos el envío.
             </Accordion>
-            <Accordion title="¿Qué medios de pago tienen?">
-              Aceptamos transferencia bancaria (con beneficio), tarjetas de crédito y Mercado Pago.
-            </Accordion>
-            <Accordion title="¿Cuánto tardan las variantes a pedido?">
-              Generalmente entre 7 y 10 días hábiles, pero siempre te confirmamos el plazo exacto antes de que realices la compra.
-            </Accordion>
-            <Accordion title="¿Me pueden asesorar antes de decidir?">
-              ¡Claro! Ese es nuestro fuerte. Queremos que compres algo que ames usar. Escribinos sin compromiso.
+            <Accordion title="¿Qué medios de pago aceptan?">
+              Podés pagar con transferencia bancaria, tarjetas de crédito y Mercado Pago. Siempre buscamos la opción que te resulte más cómoda.
             </Accordion>
           </div>
         </div>
@@ -768,9 +764,9 @@ export default function App() {
       {/* --- SECCIÓN 9: CTA FINAL --- */}
       <section className="py-24 px-6 bg-brand-charcoal text-white text-center">
         <div className="container mx-auto max-w-2xl">
-          <h2 className="text-4xl font-serif mb-6 italic">Encontrá tu próxima pieza favorita.</h2>
+          <h2 className="text-4xl font-serif mb-6 italic">Encontrá el anillo que más va con vos.</h2>
           <p className="text-white/60 mb-10 leading-relaxed">
-            Estamos del otro lado para ayudarte a elegir el modelo ideal y la medida correcta. Sin vueltas, con criterio.
+            Te ayudamos a definir modelo, medida y disponibilidad con una conversación simple y clara por WhatsApp.
           </p>
           <div className="flex flex-col items-center gap-3">
             <Button 
@@ -782,11 +778,11 @@ export default function App() {
               Elegir mi anillo
             </Button>
             <p className="text-[10px] uppercase tracking-widest text-white/40">
-              Te orientamos en 4 pasos antes de WhatsApp
+              Respondé 3 preguntas rápidas y seguís por WhatsApp
             </p>
           </div>
           <p className="text-[10px] uppercase tracking-[0.2em] text-white/40 mt-6">
-            Respondemos de Lunes a Viernes de 10 a 19hs
+            Atención personalizada de Lunes a Viernes
           </p>
         </div>
       </section>
