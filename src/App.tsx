@@ -685,35 +685,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* --- SECCIÓN 6: MEDIDAS / STOCK --- */}
-      <section className="py-20 px-6 bg-[#F9F8F6] border-y border-brand-champagne/10">
-        <div className="container mx-auto max-w-3xl bg-white p-10 md:p-16 rounded-3xl shadow-sm">
-          <div className="flex flex-col md:flex-row gap-10 items-center">
-            <div className="w-20 h-20 bg-brand-ivory rounded-full flex items-center justify-center flex-shrink-0">
-              <Ruler className="w-8 h-8 text-brand-taupe" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-serif mb-4">¿No sabés tu medida o querés confirmar stock?</h2>
-              <p className="text-brand-taupe text-sm leading-relaxed mb-6">
-                No pasa nada. Justamente por eso la experiencia termina en WhatsApp: para ayudarte a elegir mejor antes de comprar.
-              </p>
-              <div className="flex flex-col items-start gap-2">
-                <button 
-                  onClick={() => handleWhatsApp()}
-                  className="text-brand-charcoal font-semibold text-sm flex items-center gap-2 group"
-                >
-                  Quiero ayuda para elegir <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </button>
-                <p className="text-[9px] uppercase tracking-widest text-brand-taupe">
-                  Respondé 3 preguntas rápidas y seguís por WhatsApp
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* --- SECCIÓN 7: RESPALDO --- */}
+      {/* --- SECCIÓN 6: RESPALDO --- */}
       <section className="py-24 px-6 bg-white">
         <div className="container mx-auto text-center">
           <h2 className="text-3xl font-serif mb-12 text-center">Por qué confiar en Rapagnani</h2>
@@ -737,13 +709,13 @@ export default function App() {
         </div>
       </section>
 
-      {/* --- SECCIÓN 8: FAQ --- */}
+      {/* --- SECCIÓN 7: FAQ --- */}
       <section className="py-24 px-6 bg-brand-ivory">
         <div className="container mx-auto max-w-2xl">
           <h2 className="text-3xl font-serif mb-12 text-center">Preguntas Frecuentes</h2>
           <div className="space-y-2">
             <Accordion title="¿Cómo elijo mi medida?">
-              Es muy simple. Por WhatsApp te enviamos una guía práctica para que midas un anillo que ya tengas o el contorno de tu dedo. Te acompañamos en el proceso para que no haya errores.
+              Podés consultar la <strong>Guía de talles</strong> que encontrás más abajo en esta página. De todas formas, por WhatsApp te acompañamos en el proceso para que no haya errores.
             </Accordion>
             <Accordion title="¿Qué pasa si quiero otra medida o no hay stock?">
               Justamente por eso hablamos por WhatsApp. Si el modelo que te gusta no está en tu talle exacto, te confirmamos disponibilidad o tiempos de fabricación (generalmente 7-10 días).
@@ -757,6 +729,69 @@ export default function App() {
             <Accordion title="¿Qué medios de pago aceptan?">
               Podés pagar con transferencia bancaria, tarjetas de crédito y Mercado Pago. Siempre buscamos la opción que te resulte más cómoda.
             </Accordion>
+          </div>
+        </div>
+      </section>
+
+      {/* --- SECCIÓN 8: GUÍA DE TALLES --- */}
+      <section className="py-20 px-6 bg-white border-t border-brand-champagne/10">
+        <div className="container mx-auto max-w-3xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-serif mb-4 text-brand-charcoal">Guía de talles</h2>
+            <p className="text-brand-taupe text-sm max-w-lg mx-auto leading-relaxed">
+              Si no sabés tu medida o querés confirmar stock, podés usar esta guía como referencia o escribirnos directamente.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 mb-16">
+            <div className="text-center">
+              <span className="block text-2xl font-serif italic text-brand-champagne mb-2">01</span>
+              <p className="text-xs font-medium text-brand-charcoal leading-tight">Buscá un anillo que te quede bien.</p>
+            </div>
+            <div className="text-center">
+              <span className="block text-2xl font-serif italic text-brand-champagne mb-2">02</span>
+              <p className="text-xs font-medium text-brand-charcoal leading-tight">Medí el diámetro interno en milímetros.</p>
+            </div>
+            <div className="text-center">
+              <span className="block text-2xl font-serif italic text-brand-champagne mb-2">03</span>
+              <p className="text-xs font-medium text-brand-charcoal leading-tight">Compará esa medida con la tabla de equivalencias.</p>
+            </div>
+          </div>
+
+          <div className="bg-brand-ivory/50 rounded-3xl p-8 md:p-12 border border-brand-champagne/10">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-6 gap-y-6">
+              {[
+                { n: 8, mm: 15.2 }, { n: 9, mm: 15.5 }, { n: 10, mm: 15.9 }, { n: 11, mm: 16.2 },
+                { n: 12, mm: 16.5 }, { n: 13, mm: 16.8 }, { n: 14, mm: 17.1 }, { n: 15, mm: 17.4 },
+                { n: 16, mm: 17.8 }, { n: 17, mm: 18.0 }, { n: 18, mm: 18.4 }, { n: 19, mm: 18.7 },
+                { n: 20, mm: 19.0 }, { n: 21, mm: 19.3 }, { n: 22, mm: 19.6 }, { n: 23, mm: 20.0 },
+                { n: 24, mm: 20.3 }, { n: 25, mm: 20.6 }, { n: 26, mm: 21.0 }, { n: 27, mm: 21.3 },
+                { n: 28, mm: 21.6 }, { n: 29, mm: 22.0 }, { n: 30, mm: 22.3 }
+              ].map((size) => (
+                <div key={size.n} className="flex justify-between items-center border-b border-brand-champagne/20 pb-2 px-1">
+                  <span className="text-[10px] font-bold text-brand-charcoal">N° {size.n}</span>
+                  <span className="text-[10px] text-brand-taupe">{size.mm} mm</span>
+                </div>
+              ))}
+            </div>
+            <p className="mt-8 text-[10px] text-brand-taupe italic text-center">
+              Importante: la medida puede variar según el dedo en el que vayas a usar el anillo.
+            </p>
+          </div>
+
+          <div className="mt-12 text-center">
+            <p className="text-sm text-brand-taupe mb-4">Si todavía te quedan dudas, te ayudamos por WhatsApp a definir la medida correcta.</p>
+            <div className="flex flex-col items-center gap-2">
+              <button 
+                onClick={() => handleWhatsApp()}
+                className="text-brand-charcoal font-bold text-xs uppercase tracking-widest border-b border-brand-charcoal pb-1 hover:text-brand-taupe hover:border-brand-taupe transition-colors"
+              >
+                Quiero ayuda para elegir
+              </button>
+              <p className="text-[8px] uppercase tracking-widest text-brand-taupe">
+                Respondé 3 preguntas rápidas y seguís por WhatsApp
+              </p>
+            </div>
           </div>
         </div>
       </section>
