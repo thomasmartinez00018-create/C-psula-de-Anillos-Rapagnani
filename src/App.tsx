@@ -163,10 +163,7 @@ _Enviado desde la Landing Page de Rapagnani_`;
 
       const whatsappUrl = `https://api.whatsapp.com/send?phone=5491169302959&text=${encodeURIComponent(message)}`;
       
-      // 1. TRIGGER NAVIGATION IMMEDIATELY (Most reliable for mobile)
-      window.location.href = whatsappUrl;
-
-      // 2. TRACK IN BACKGROUND
+      // 1. TRACK IN BACKGROUND (Non-blocking)
       trackMetaEvent('Lead', {
         content_name: product ? `WhatsApp - ${product.name}` : 'WhatsApp - General',
         content_category: 'Concierge',
@@ -174,9 +171,20 @@ _Enviado desde la Landing Page de Rapagnani_`;
         currency: 'ARS'
       });
 
-      // 3. UPDATE UI (Show fallback screen)
-      setIsRedirecting(true);
-      setStep(step + 1);
+      // 2. TRIGGER NAVIGATION (Most robust method for Android/iOS)
+      // Using a hidden link simulation to bypass browser restrictions on external protocols
+      const link = document.createElement('a');
+      link.href = whatsappUrl;
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.click();
+      
+      // 3. UPDATE UI (Show fallback screen after a tiny delay)
+      setTimeout(() => {
+        setIsRedirecting(true);
+        setStep(step + 1);
+        if (link.parentNode) document.body.removeChild(link);
+      }, 100);
       
       // IMPORTANT: We do NOT call onClose() here. 
       // If we unmount the component while the browser is trying to trigger the app switch,
