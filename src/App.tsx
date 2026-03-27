@@ -161,23 +161,21 @@ _Enviado desde la Landing Page de Rapagnani_`
 
 _Enviado desde la Landing Page de Rapagnani_`;
 
-      setTimeout(() => {
-        const whatsappUrl = `https://api.whatsapp.com/send?phone=5491169302959&text=${encodeURIComponent(message)}`;
-        
-        trackMetaEvent('Lead', {
-          content_name: product ? `WhatsApp - ${product.name}` : 'WhatsApp - General',
-          content_category: 'Concierge',
-          value: product ? parseFloat(product.price.replace('.', '')) : 0,
-          currency: 'ARS'
-        });
+      const whatsappUrl = `https://api.whatsapp.com/send?phone=5491169302959&text=${encodeURIComponent(message)}`;
+      
+      trackMetaEvent('Lead', {
+        content_name: product ? `WhatsApp - ${product.name}` : 'WhatsApp - General',
+        content_category: 'Concierge',
+        value: product ? parseFloat(product.price.replace('.', '')) : 0,
+        currency: 'ARS'
+      });
 
-        // Redirect immediately
-        window.location.assign(whatsappUrl);
-        
-        // IMPORTANT: We do NOT call onClose() here. 
-        // If we unmount the component while the browser is trying to trigger the app switch,
-        // many mobile browsers (especially iOS and in-app browsers) will cancel the navigation.
-      }, 500);
+      // Redirect immediately without delay
+      window.location.assign(whatsappUrl);
+      
+      // IMPORTANT: We do NOT call onClose() here. 
+      // If we unmount the component while the browser is trying to trigger the app switch,
+      // many mobile browsers (especially iOS and in-app browsers) will cancel the navigation.
     } else {
       setStep(step + 1);
     }
