@@ -30,10 +30,11 @@ const trackMetaEvent = async (eventName: string, eventData: any = {}, userData: 
 
   // Server-side CAPI
   try {
-    await fetch('/api/meta-event', {
+    fetch('/api/meta-event', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ eventName, eventData, userData }),
+      keepalive: true, // Crucial for tracking on redirect
     });
   } catch (error) {
     console.error('Error tracking Meta CAPI event:', error);
@@ -161,15 +162,22 @@ _Enviado desde la Landing Page de Rapagnani_`
 _Enviado desde la Landing Page de Rapagnani_`;
 
       setTimeout(() => {
+        const whatsappUrl = `https://api.whatsapp.com/send?phone=5491169302959&text=${encodeURIComponent(message)}`;
+        
         trackMetaEvent('Lead', {
           content_name: product ? `WhatsApp - ${product.name}` : 'WhatsApp - General',
           content_category: 'Concierge',
           value: product ? parseFloat(product.price.replace('.', '')) : 0,
           currency: 'ARS'
         });
-        window.location.href = `https://wa.me/5491169302959?text=${encodeURIComponent(message)}`;
-        onClose();
-      }, 800);
+
+        // Redirect immediately
+        window.location.assign(whatsappUrl);
+        
+        // IMPORTANT: We do NOT call onClose() here. 
+        // If we unmount the component while the browser is trying to trigger the app switch,
+        // many mobile browsers (especially iOS and in-app browsers) will cancel the navigation.
+      }, 500);
     } else {
       setStep(step + 1);
     }
@@ -192,8 +200,8 @@ _Enviado desde la Landing Page de Rapagnani_`;
       content_category: 'Concierge'
     });
 
-    window.location.href = `https://wa.me/5491169302959?text=${encodeURIComponent(message)}`;
-    onClose();
+    window.location.assign(`https://api.whatsapp.com/send?phone=5491169302959&text=${encodeURIComponent(message)}`);
+    // No onClose() here either for reliability
   };
 
   return (
@@ -837,7 +845,7 @@ export default function App() {
             <a href="https://www.instagram.com/rapagnani.nordelta" target="_blank" rel="noopener noreferrer">
               <Instagram className="w-5 h-5 text-brand-taupe cursor-pointer hover:text-brand-charcoal transition-colors" />
             </a>
-            <a href="https://wa.me/5491169302959" target="_blank" rel="noopener noreferrer">
+            <a href="https://api.whatsapp.com/send?phone=5491169302959" target="_blank" rel="noopener noreferrer" className="hover:text-brand-champagne transition-colors">
               <MessageCircle className="w-5 h-5 text-brand-taupe cursor-pointer hover:text-brand-charcoal transition-colors" />
             </a>
           </div>
