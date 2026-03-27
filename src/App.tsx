@@ -163,6 +163,10 @@ _Enviado desde la Landing Page de Rapagnani_`;
 
       const whatsappUrl = `https://api.whatsapp.com/send?phone=5491169302959&text=${encodeURIComponent(message)}`;
       
+      // 1. TRIGGER NAVIGATION IMMEDIATELY (Most reliable for mobile)
+      window.location.href = whatsappUrl;
+
+      // 2. TRACK IN BACKGROUND
       trackMetaEvent('Lead', {
         content_name: product ? `WhatsApp - ${product.name}` : 'WhatsApp - General',
         content_category: 'Concierge',
@@ -170,8 +174,9 @@ _Enviado desde la Landing Page de Rapagnani_`;
         currency: 'ARS'
       });
 
-      // Redirect immediately without delay
-      window.location.assign(whatsappUrl);
+      // 3. UPDATE UI (Show fallback screen)
+      setIsRedirecting(true);
+      setStep(step + 1);
       
       // IMPORTANT: We do NOT call onClose() here. 
       // If we unmount the component while the browser is trying to trigger the app switch,
@@ -290,13 +295,38 @@ _Enviado desde la Landing Page de Rapagnani_`;
                   <motion.div 
                     animate={{ rotate: 360 }}
                     transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                    className="w-20 h-20 border-2 border-brand-champagne border-t-brand-taupe rounded-full mx-auto mb-8"
+                    className="w-16 h-16 border-2 border-brand-champagne border-t-brand-taupe rounded-full mx-auto mb-8"
                   />
                   <h2 className="text-3xl font-serif mb-4">
                     Perfecto, te llevamos a WhatsApp...
                   </h2>
-                  <p className="text-brand-taupe">
+                  <p className="text-brand-taupe mb-10">
                     Paula ya tiene tus respuestas para asesorarte mejor.
+                  </p>
+                  
+                  <Button 
+                    variant="whatsapp" 
+                    onClick={() => {
+                      const message = product 
+                        ? `*NUEVA CONSULTA - CÁPSULA DE ANILLOS*
+*Producto:* ${product.name}
+*Precio:* $${product.price}
+*Preferencia:* ${answers[0]}
+*Medida:* ${answers[1]}
+*Consulta específica:* ${answers[2]}`
+                        : `*NUEVA CONSULTA - ASESORAMIENTO GENERAL*
+*Estilo buscado:* ${answers[0]}
+*Destino:* ${answers[1]}
+*Medida:* ${answers[2]}
+*Objetivo:* ${answers[3]}`;
+                      window.location.href = `https://api.whatsapp.com/send?phone=5491169302959&text=${encodeURIComponent(message)}`;
+                    }}
+                    icon={MessageCircle}
+                  >
+                    Abrir WhatsApp ahora
+                  </Button>
+                  <p className="mt-4 text-[10px] uppercase tracking-widest text-brand-taupe">
+                    Si no abre solo, hacé clic en el botón
                   </p>
                 </motion.div>
               )}
