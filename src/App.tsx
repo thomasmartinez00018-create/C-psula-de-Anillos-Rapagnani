@@ -22,7 +22,39 @@ import {
 
 // --- Utilities ---
 
-const trackMetaEvent = async (eventName: string, eventData: any = {}, userData: any = {}) => {
+const formatAnswer = (ans: string) => {
+  const mapping: { [key: string]: string } = {
+    // Medidas
+    "Sí": "Ya conozco mi medida",
+    "Más o menos": "Tengo una idea, pero dudo de mi medida",
+    "No": "No sé mi medida",
+    "No, necesito ayuda": "No sé mi medida, necesito ayuda para medir",
+    // Preferencias Flow A
+    "Quiero este modelo": "Me interesa este modelo específico",
+    "Quiero ver algo parecido": "Busco algo similar a este modelo",
+    "Quiero que me orienten": "Necesito asesoramiento sobre este estilo",
+    // Consultas Flow A
+    "Stock / disponibilidad": "Consultar stock y disponibilidad",
+    "Tiempo de entrega": "Consultar tiempos de entrega",
+    "Variantes / medidas": "Consultar variantes o medidas especiales",
+    "Ya quiero avanzar con la compra": "Quiero avanzar directamente con la compra",
+    // Estilos Flow B
+    "Algo delicado": "Busco un estilo delicado y fino",
+    "Algo con más presencia": "Busco un anillo con más presencia y volumen",
+    "Un regalo especial": "Busco un regalo especial con significado",
+    // Destino Flow B
+    "Para mí": "El anillo es para uso personal",
+    "Para regalar": "El anillo es para hacer un regalo",
+    // Objetivos Flow B
+    "Ver opciones que me convienen": "Quiero ver opciones recomendadas",
+    "Consultar stock / variantes": "Quiero consultar stock y variantes",
+    "Definir medida": "Necesito ayuda para definir la medida",
+    "Ya quiero avanzar": "Quiero avanzar con la compra"
+  };
+  return mapping[ans] || ans;
+};
+
+const trackMetaEvent = (eventName: string, eventData: any = {}, userData: any = {}) => {
   // Client-side Pixel
   if ((window as any).fbq) {
     (window as any).fbq('track', eventName, eventData);
@@ -103,42 +135,8 @@ const ConciergeModal = ({ isOpen, onClose, product }: any) => {
     setAnswers(newAnswers);
     
     if (step === steps.length - 1) {
-      setIsRedirecting(true);
-      setStep(step + 1);
-      
-      // Mapeo de respuestas para que sean más legibles para el negocio
-      const formatAnswer = (ans: string) => {
-        const mapping: { [key: string]: string } = {
-          // Medidas
-          "Sí": "Ya conozco mi medida",
-          "Más o menos": "Tengo una idea, pero dudo de mi medida",
-          "No": "No sé mi medida",
-          "No, necesito ayuda": "No sé mi medida, necesito ayuda para medir",
-          // Preferencias Flow A
-          "Quiero este modelo": "Me interesa este modelo específico",
-          "Quiero ver algo parecido": "Busco algo similar a este modelo",
-          "Quiero que me orienten": "Necesito asesoramiento sobre este estilo",
-          // Consultas Flow A
-          "Stock / disponibilidad": "Consultar stock y disponibilidad",
-          "Tiempo de entrega": "Consultar tiempos de entrega",
-          "Variantes / medidas": "Consultar variantes o medidas especiales",
-          "Ya quiero avanzar con la compra": "Quiero avanzar directamente con la compra",
-          // Estilos Flow B
-          "Algo delicado": "Busco un estilo delicado y fino",
-          "Algo con más presencia": "Busco un anillo con más presencia y volumen",
-          "Un regalo especial": "Busco un regalo especial con significado",
-          // Destino Flow B
-          "Para mí": "El anillo es para uso personal",
-          "Para regalar": "El anillo es para hacer un regalo",
-          // Objetivos Flow B
-          "Ver opciones que me convienen": "Quiero ver opciones recomendadas",
-          "Consultar stock / variantes": "Quiero consultar stock y variantes",
-          "Definir medida": "Necesito ayuda para definir la medida",
-          "Ya quiero avanzar": "Quiero avanzar con la compra"
-        };
-        return mapping[ans] || ans;
-      };
-
+      // This is now handled by the direct <a> tag in the render method for 100% reliability.
+      // But we keep this as a fallback just in case.
       const formattedAnswers = newAnswers.map(formatAnswer);
 
       const message = product 
@@ -163,32 +161,19 @@ _Enviado desde la Landing Page de Rapagnani_`;
 
       const whatsappUrl = `https://api.whatsapp.com/send?phone=5491169302959&text=${encodeURIComponent(message)}`;
       
-      // 1. TRACK IN BACKGROUND (Non-blocking)
-      trackMetaEvent('Lead', {
-        content_name: product ? `WhatsApp - ${product.name}` : 'WhatsApp - General',
-        content_category: 'Concierge',
-        value: product ? parseFloat(product.price.replace('.', '')) : 0,
-        currency: 'ARS'
-      });
+      window.location.href = whatsappUrl;
 
-      // 2. TRIGGER NAVIGATION (Most robust method for Android/iOS)
-      // Using a hidden link simulation to bypass browser restrictions on external protocols
-      const link = document.createElement('a');
-      link.href = whatsappUrl;
-      link.style.display = 'none';
-      document.body.appendChild(link);
-      link.click();
-      
-      // 3. UPDATE UI (Show fallback screen after a tiny delay)
       setTimeout(() => {
+        trackMetaEvent('Lead', {
+          content_name: product ? `WhatsApp - ${product.name}` : 'WhatsApp - General',
+          content_category: 'Concierge',
+          value: product ? parseFloat(product.price.replace('.', '')) : 0,
+          currency: 'ARS'
+        });
+
         setIsRedirecting(true);
         setStep(step + 1);
-        if (link.parentNode) document.body.removeChild(link);
-      }, 100);
-      
-      // IMPORTANT: We do NOT call onClose() here. 
-      // If we unmount the component while the browser is trying to trigger the app switch,
-      // many mobile browsers (especially iOS and in-app browsers) will cancel the navigation.
+      }, 50);
     } else {
       setStep(step + 1);
     }
@@ -281,17 +266,64 @@ _Enviado desde la Landing Page de Rapagnani_`;
                   )}
 
                   <div className="space-y-3">
-                    {steps[step].options.map((option, i) => (
-                      <button
-                        key={i}
-                        onClick={() => handleOptionClick(option)}
-                        className="w-full text-left p-5 rounded-2xl bg-white border border-brand-champagne/10 hover:border-brand-taupe transition-all duration-300 group"
-                      >
-                        <span className="text-sm font-medium text-brand-charcoal group-hover:text-brand-taupe transition-colors">
-                          {option}
-                        </span>
-                      </button>
-                    ))}
+                    {steps[step].options.map((option, i) => {
+                      const isLastStep = step === steps.length - 1;
+                      
+                      if (isLastStep) {
+                        const tempAnswers = [...answers, option];
+                        const formatted = tempAnswers.map(formatAnswer);
+                        const msg = product 
+                          ? `*NUEVA CONSULTA - CÁPSULA DE ANILLOS*
+*Producto:* ${product.name}
+*Precio:* $${product.price}
+*Preferencia:* ${formatted[0]}
+*Medida:* ${formatted[1]}
+*Consulta específica:* ${formatted[2]}`
+                          : `*NUEVA CONSULTA - ASESORAMIENTO GENERAL*
+*Estilo buscado:* ${formatted[0]}
+*Destino:* ${formatted[1]}
+*Medida:* ${formatted[2]}
+*Objetivo:* ${formatted[3]}`;
+                        
+                        const url = `https://api.whatsapp.com/send?phone=5491169302959&text=${encodeURIComponent(msg)}`;
+                        
+                        return (
+                          <a
+                            key={i}
+                            href={url}
+                            onClick={() => {
+                              trackMetaEvent('Lead', {
+                                content_name: product ? `WhatsApp - ${product.name}` : 'WhatsApp - General',
+                                content_category: 'Concierge',
+                                value: product ? parseFloat(product.price.replace('.', '')) : 0,
+                                currency: 'ARS'
+                              });
+                              setTimeout(() => {
+                                setIsRedirecting(true);
+                                setStep(step + 1);
+                              }, 100);
+                            }}
+                            className="w-full text-left p-5 rounded-2xl bg-white border border-brand-champagne/10 hover:border-brand-taupe transition-all duration-300 group block no-underline"
+                          >
+                            <span className="text-sm font-medium text-brand-charcoal group-hover:text-brand-taupe transition-colors">
+                              {option}
+                            </span>
+                          </a>
+                        );
+                      }
+
+                      return (
+                        <button
+                          key={i}
+                          onClick={() => handleOptionClick(option)}
+                          className="w-full text-left p-5 rounded-2xl bg-white border border-brand-champagne/10 hover:border-brand-taupe transition-all duration-300 group"
+                        >
+                          <span className="text-sm font-medium text-brand-charcoal group-hover:text-brand-taupe transition-colors">
+                            {option}
+                          </span>
+                        </button>
+                      );
+                    })}
                   </div>
                 </motion.div>
               ) : (
