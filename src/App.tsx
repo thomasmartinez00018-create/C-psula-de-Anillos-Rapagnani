@@ -344,27 +344,52 @@ _Enviado desde la Landing Page de Rapagnani_`;
                     Paula ya tiene tus respuestas para asesorarte mejor.
                   </p>
                   
-                  <Button 
-                    variant="whatsapp" 
-                    onClick={() => {
-                      const message = product 
-                        ? `*NUEVA CONSULTA - CÁPSULA DE ANILLOS*
+                  <motion.div
+                    animate={{ 
+                      scale: [1, 1.05, 1],
+                      boxShadow: [
+                        "0 0 0 0 rgba(37, 211, 102, 0)",
+                        "0 0 20px 10px rgba(37, 211, 102, 0.2)",
+                        "0 0 0 0 rgba(37, 211, 102, 0)"
+                      ]
+                    }}
+                    transition={{ 
+                      duration: 2, 
+                      repeat: Infinity, 
+                      ease: "easeInOut" 
+                    }}
+                    className="rounded-full"
+                  >
+                    <Button 
+                      variant="whatsapp" 
+                      onClick={() => {
+                        const message = product 
+                          ? `*NUEVA CONSULTA - CÁPSULA DE ANILLOS*
 *Producto:* ${product.name}
 *Precio:* $${product.price}
 *Preferencia:* ${answers[0]}
 *Medida:* ${answers[1]}
 *Consulta específica:* ${answers[2]}`
-                        : `*NUEVA CONSULTA - ASESORAMIENTO GENERAL*
+                          : `*NUEVA CONSULTA - ASESORAMIENTO GENERAL*
 *Estilo buscado:* ${answers[0]}
 *Destino:* ${answers[1]}
 *Medida:* ${answers[2]}
 *Objetivo:* ${answers[3]}`;
-                      window.location.href = `https://api.whatsapp.com/send?phone=5491169302959&text=${encodeURIComponent(message)}`;
-                    }}
-                    icon={MessageCircle}
-                  >
-                    Abrir WhatsApp ahora
-                  </Button>
+                        
+                        trackMetaEvent('Contact', { 
+                          content_name: 'WhatsApp Fallback Button', 
+                          content_category: 'Concierge',
+                          content_label: product ? product.name : 'General'
+                        });
+
+                        window.location.href = `https://api.whatsapp.com/send?phone=5491169302959&text=${encodeURIComponent(message)}`;
+                      }}
+                      icon={MessageCircle}
+                      className="w-full"
+                    >
+                      Abrir WhatsApp ahora
+                    </Button>
+                  </motion.div>
                   <p className="mt-4 text-[10px] uppercase tracking-widest text-brand-taupe">
                     Si no abre solo, hacé clic en el botón
                   </p>
