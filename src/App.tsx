@@ -346,16 +346,20 @@ _Enviado desde la Landing Page de Rapagnani_`;
                   
                   <motion.div
                     animate={{ 
-                      scale: [1, 1.05, 1],
+                      scale: [1, 1.1, 1, 1.1, 1],
                       boxShadow: [
                         "0 0 0 0 rgba(37, 211, 102, 0)",
-                        "0 0 20px 10px rgba(37, 211, 102, 0.2)",
+                        "0 0 30px 15px rgba(37, 211, 102, 0.3)",
+                        "0 0 0 0 rgba(37, 211, 102, 0)",
+                        "0 0 30px 15px rgba(37, 211, 102, 0.3)",
                         "0 0 0 0 rgba(37, 211, 102, 0)"
                       ]
                     }}
                     transition={{ 
-                      duration: 2, 
+                      duration: 1.5, 
                       repeat: Infinity, 
+                      repeatDelay: 1,
+                      times: [0, 0.2, 0.4, 0.6, 1],
                       ease: "easeInOut" 
                     }}
                     className="rounded-full"
@@ -390,8 +394,8 @@ _Enviado desde la Landing Page de Rapagnani_`;
                       Abrir WhatsApp ahora
                     </Button>
                   </motion.div>
-                  <p className="mt-4 text-[10px] uppercase tracking-widest text-brand-taupe">
-                    Si no abre solo, hacé clic en el botón
+                  <p className="mt-4 text-[10px] uppercase tracking-widest text-brand-taupe font-bold">
+                    Por favor, volvé a tocar el botón para abrir WhatsApp
                   </p>
                 </motion.div>
               )}
